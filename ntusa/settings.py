@@ -28,6 +28,7 @@ STATIC_URL = '/static/'
 
 # Core configurations
 DEBUG = ('DEBUG' in os.environ)
+SECRET_KEY = '<Secret Key>'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
