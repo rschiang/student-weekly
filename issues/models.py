@@ -5,6 +5,10 @@ class Issue(models.Model):
     # Fields
     # * ID is used directly as issue volume number.
     pub_date = models.DateField(help_text='發行日期')
+    editable = models.BooleanField(default=True, editable=False, help_text='可否編輯')
+
+    # Related fields
+    template = models.ForeignKey('templates.Template', on_delete=models.PROTECT, blank=True, null=True)
 
     # Methods
     def __str__(self):
@@ -27,9 +31,9 @@ class Column(models.Model):
 class Provider(models.Model):
     # Fields
     name = models.CharField(max_length=32, help_text='提供者名稱')
-    description = models.TextField(blank=True, help_text='提供者說明')
-    image = models.ImageField(upload_to=provider_image_url, help_text='提供者 Logo')
-    url = models.URLField(blank=True, max_length=256, help_text='提供者網址')
+    description = models.TextField(blank=True, help_text='提供者說明文字')
+    icon = models.ImageField(upload_to=provider_image_url, help_text='提供者 Logo')
+    site_url = models.URLField(blank=True, max_length=256, help_text='提供者網站網址')
 
     # Methods
     def __str__(self):
@@ -39,7 +43,7 @@ class Provider(models.Model):
 class Article(models.Model):
     # Fields
     name = models.CharField(max_length=64, help_text='文章名稱')
-    description = models.TextField(blank=True, help_text='文章內容')
+    content = models.TextField(blank=True, help_text='文章內容')
     image = models.ImageField(upload_to=article_image_url, blank=True, max_length=128, help_text='文章影像')
     url = models.URLField(blank=True, max_length=256, help_text='文章連結網址')
 
