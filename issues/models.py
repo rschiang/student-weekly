@@ -1,4 +1,5 @@
 from django.db import models
+from .utils import article_image_url
 
 class Issue(models.Model):
     # Fields
@@ -39,7 +40,7 @@ class Article(models.Model):
     # Fields
     name = models.CharField(max_length=64, help_text='文章名稱')
     description = models.TextField(blank=True, help_text='文章內容')
-    image = models.ImageField(upload_to='%Y/%m/', blank=True, max_length=128, help_text='文章影像')
+    image = models.ImageField(upload_to=article_image_url, blank=True, max_length=128, help_text='文章影像')
     url = models.URLField(blank=True, max_length=256, help_text='文章連結網址')
 
     # Related fields
