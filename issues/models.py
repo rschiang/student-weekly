@@ -1,5 +1,5 @@
 from django.db import models
-from .utils import article_image_url
+from .utils import article_image_url, provider_image_url
 
 class Issue(models.Model):
     # Fields
@@ -28,7 +28,7 @@ class Provider(models.Model):
     # Fields
     name = models.CharField(max_length=32, help_text='提供者名稱')
     description = models.TextField(blank=True, help_text='提供者說明')
-    image = models.ImageField(upload_to='providers/', help_text='提供者 Logo')
+    image = models.ImageField(upload_to=provider_image_url, help_text='提供者 Logo')
     url = models.URLField(blank=True, max_length=256, help_text='提供者網址')
 
     # Methods
