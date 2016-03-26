@@ -14,8 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from django.contrib import admin
+from django.contrib import auth
+from django.core.urlresolvers import reverse_lazy
+from .views import Home, Settings
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^$', Home.as_view(), name='home'),
+    url(r'^login/$', auth.views.login, {
+                                          'template_name': 'login.html',
+                                      }),
+    url(r'^logout/$', auth.views.logout, {
+                                            'template_name': 'logout.html',
+                                            'next_page': reverse_lazy('home'),
+                                        }),
+    url(r'^settings/$', Settings.as_view(), name='settings'),
+    url(r'^issue/', include('issues.urls')),
 ]

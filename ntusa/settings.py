@@ -50,6 +50,8 @@ if not DEBUG:
 
 # Application definition
 INSTALLED_APPS = [
+    'issues',
+    'templates',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
