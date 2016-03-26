@@ -1,0 +1,14 @@
+{
+  "name": "student-weekly",
+  "version": "1.0.0",
+  "author": "Poren Chiang",
+  "private": true,
+  "dependencies": {
+    "semantic-ui": "^2.1.8"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rschiang/student-weekly.git"
+  }
+}
