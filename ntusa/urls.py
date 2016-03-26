@@ -21,12 +21,12 @@ from .views import Home, Settings
 urlpatterns = [
     url(r'^$', Home.as_view(), name='home'),
     url(r'^login/$', auth.views.login, {
-                                          'template_name': 'login.html',
-                                      }),
+            'template_name': 'login.html',
+        }),
     url(r'^logout/$', auth.views.logout, {
-                                            'template_name': 'logout.html',
-                                            'next_page': reverse_lazy('home'),
-                                        }),
+            'template_name': 'logout.html',
+            'next_page': reverse_lazy('home'),
+        }),
     url(r'^settings/$', Settings.as_view(), name='settings'),
     url(r'^issue/', include('issues.urls')),
 ]
