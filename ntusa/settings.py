@@ -94,6 +94,10 @@ TEMPLATES = [
     },
 ]
 
+SITE_META = {
+    'site_name': 'NTU Student Weekly 臺大學生週報',
+}
+
 WSGI_APPLICATION = 'ntusa.wsgi.application'
 
 # Password validation
