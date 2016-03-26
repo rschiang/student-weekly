@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, TemplateView
 from templates.models import Template
-from .models import Issue, Column, Provider
+from issues.models import Issue, Column
 
 class Home(ListView):
     queryset = Issue.objects.order_by('-id')
