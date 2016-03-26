@@ -59,6 +59,7 @@ if not DEBUG:
 
 # Application definition
 INSTALLED_APPS = [
+    'ntusa',
     'issues',
     'templates',
     'django.contrib.admin',
