@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ static('semantic.min.css') }}" />
+
+    <title>{{ meta.site_name }}</title>
+</head>
+<body>
+    <div class="ui container">
+        {% block content %}{% endblock %}
+    </div>
+    <script src="{{ static('semantic.min.js') }}"></script>
+</body>
+</html>

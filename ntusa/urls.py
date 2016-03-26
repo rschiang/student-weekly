@@ -25,7 +25,6 @@ urlpatterns = [
             'template_name': 'login.html',
         }),
     url(r'^logout/$', auth.views.logout, {
-            'template_name': 'logout.html',
             'next_page': reverse_lazy('home'),
         }),
     url(r'^settings/$', Settings.as_view(), name='settings'),
