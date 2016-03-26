@@ -12,7 +12,7 @@ import os
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
-LANGUAGE_CODE = 'zh-Hant'
+LANGUAGE_CODE = 'zh-TW'
 TIME_ZONE = 'Asia/Taipei'
 
 USE_I18N = True
@@ -73,16 +73,11 @@ ROOT_URLCONF = 'ntusa.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
+            'environment': 'ntusa.jinja2.environment',
         },
     },
 ]

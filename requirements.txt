@@ -1,3 +1,6 @@
 Django==1.9.4
+Jinja2==2.8
 Pillow==3.1.1
+premailer==2.10.1
+pystache==0.5.4
 python-slugify==1.2.0
