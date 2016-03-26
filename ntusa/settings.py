@@ -24,7 +24,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+STATIC_URL = '/assets/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'vendor/semantic/dist/'),
+]
 
 # Core configurations
 DEBUG = ('DEBUG' in os.environ)
@@ -37,6 +44,8 @@ DATABASES = {
 }
 
 if not DEBUG:
+    MEDIA_ROOT = os.environ['DJANGO_MEDIA_ROOT']
+    STATIC_ROOT = os.environ['DJANGO_STATIC_ROOT']
     SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
     ALLOWED_HOSTS = os.environ['SERVER_HOST'].split(',')
     DATABASES['default'] = {

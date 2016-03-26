@@ -1,5 +1,14 @@
+# Python
 venv/
-.DS_Store
-.sass-cache
 __pycache__
+
+# OS X leftovers
+.DS_Store
+
+# Front-end components
+.sass-cache
 node_modules/
+
+# Static directories
+assets/
+media/

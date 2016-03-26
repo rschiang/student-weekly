@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import auth
 from django.core.urlresolvers import reverse_lazy
@@ -30,3 +31,7 @@ urlpatterns = [
     url(r'^settings/$', Settings.as_view(), name='settings'),
     url(r'^issue/', include('issues.urls')),
 ]
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
