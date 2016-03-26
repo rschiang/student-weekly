@@ -1,5 +1,6 @@
 import base64
 import os
+from datetime import datetime
 from django.utils.timezone import now
 from slugify import slugify
 
@@ -43,3 +44,10 @@ def provider_image_url(instance, filename):
 
 def article_image_url(instance, filename):
     return '{0:%Y}/{0:%m}/{1}'.format(now(), normalize_filename(unique=True))
+
+def current_term():
+    """
+    Calulates the current Student Association term.
+    """
+    date = now()
+    return (date.year - 1987) - (1 if date.month < 8 else 0)

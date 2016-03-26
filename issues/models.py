@@ -1,10 +1,11 @@
 from django.db import models
-from .utils import article_image_url, provider_image_url
+from .utils import article_image_url, current_term, provider_image_url
 
 class Issue(models.Model):
     # Fields
     # * ID is used directly as issue volume number.
     pub_date = models.DateField(help_text='發行日期')
+    term = models.IntegerField(default=current_term, editable=False, help_text='發行屆數')
     editable = models.BooleanField(default=True, editable=False, help_text='可否編輯')
 
     # Related fields
