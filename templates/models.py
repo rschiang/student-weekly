@@ -9,7 +9,7 @@ class Template(models.Model):
 
     # Methods
     def __str__(self):
-        return '<Template {}({})>'.format(self.name, self.id)
+        return '{} [{}]'.format(self.name, self.author)
 
 
 class Layout(models.Model):
@@ -22,4 +22,4 @@ class Layout(models.Model):
 
     # Methods
     def __str__(self):
-        return '<Layout {}({})>'.format(self.name, self.id)
+        return '{} [{}]'.format(self.name, self.identifier)
