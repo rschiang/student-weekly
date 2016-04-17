@@ -90,6 +90,8 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'environment': 'ntusa.jinja2.environment',
+            'trim_blocks': True,
+            'lstrip_blocks': True,
         },
     },
 ]
