@@ -10,7 +10,7 @@
 </head>
 <body class="weekly home">
     <div class="sidebar">
-        <img alt="Student Weekly 臺大學生週報" class="weekly site title" src="assets/title.svg" />
+        <img alt="{{ meta.site_name }}" class="weekly site title" src="assets/title.svg" />
     </div>
     <div class="content">
     {% set term = none %}
@@ -40,7 +40,7 @@
     {% endfor %}
     </div>
     <div class="footer">
-        <a href="https://ntustudents.org"><img alt="國立臺灣大學學生會" class="weekly vendor logo" src="assets/logo.png" /></a>
+        <a href="https://ntustudents.org"><img alt="{{ meta.vendor_name }}" class="weekly vendor logo" src="assets/logo.png" /></a>
     </div>
 </body>
 </html>

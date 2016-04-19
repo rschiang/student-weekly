@@ -3,7 +3,7 @@
     <div class="weekly login">
         <div class="ui middle aligned center aligned grid">
             <div class="column">
-                <h1>NTU Student Weekly</h1>
+                <h1>{{ meta.site_short_name }}</h1>
                 <form class="ui form{{ ' error' if form.errors else '' }}" method="POST" action="{{ url('login') }}">
                     {% if form.errors %}
                     <div class="ui error message">
@@ -39,7 +39,7 @@
                 </form>
                 <footer class="weekly quoted footer">
                     © 2016 <a href="{{ meta.site_url }}">{{ meta.site_vendor }}</a><br />
-                    <q class="quote">我們貢獻這所大學之精神於宇宙。</q>
+                    <q class="quote">{{ meta.site_quote }}</q>
                 </footer>
             </div>
         </div>
