@@ -1,4 +1,6 @@
+from django.contrib import auth
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.urlresolvers import reverse_lazy
 from django.views.generic import ListView, TemplateView
 from templates.models import Template
 from issues.models import Issue, Column
@@ -18,3 +20,9 @@ class Settings(LoginRequiredMixin, TemplateView):
             'template_list': Template.objects.all(),
         })
         return context
+
+def login(request):
+    return auth.views.login(request, template_name='login.html')
+
+def logout(request):
+    return auth.views.logout(request, next_page=reverse_lazy('home'))

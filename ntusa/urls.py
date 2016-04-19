@@ -15,18 +15,12 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls import include, url
-from django.contrib import auth
-from django.core.urlresolvers import reverse_lazy
-from .views import Home, Settings
+from .views import Home, Settings, login, logout
 
 urlpatterns = [
     url(r'^$', Home.as_view(), name='home'),
-    url(r'^login/$', auth.views.login, {
-            'template_name': 'login.html',
-        }, name='login'),
-    url(r'^logout/$', auth.views.logout, {
-            'next_page': reverse_lazy('home'),
-        }, name='logout'),
+    url(r'^login/$', login, name='login'),
+    url(r'^logout/$', logout, name='logout'),
     url(r'^settings/$', Settings.as_view(), name='settings'),
     url(r'^issue/', include('issues.urls')),
 ]
