@@ -98,6 +98,8 @@ TEMPLATES = [
 
 SITE_META = {
     'site_name': 'NTU Student Weekly 臺大學生週報',
+    'site_vendor': '國立臺灣大學學生會',
+    'site_url': 'https://ntustudents.org',
 }
 
 WSGI_APPLICATION = 'ntusa.wsgi.application'

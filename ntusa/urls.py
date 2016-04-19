@@ -23,10 +23,10 @@ urlpatterns = [
     url(r'^$', Home.as_view(), name='home'),
     url(r'^login/$', auth.views.login, {
             'template_name': 'login.html',
-        }),
+        }, name='login'),
     url(r'^logout/$', auth.views.logout, {
             'next_page': reverse_lazy('home'),
-        }),
+        }, name='logout'),
     url(r'^settings/$', Settings.as_view(), name='settings'),
     url(r'^issue/', include('issues.urls')),
 ]
