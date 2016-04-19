@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic import ListView, TemplateView
 from templates.models import Template
 from issues.models import Issue, Column
+from .forms import HintedAuthenticationForm
 
 class Home(ListView):
     queryset = Issue.objects.order_by('-id')
@@ -22,7 +23,7 @@ class Settings(LoginRequiredMixin, TemplateView):
         return context
 
 def login(request):
-    return auth.views.login(request, template_name='login.html')
+    return auth.views.login(request, template_name='login.html', authentication_form=HintedAuthenticationForm)
 
 def logout(request):
     return auth.views.logout(request, next_page=reverse_lazy('home'))
