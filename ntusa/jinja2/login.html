@@ -4,14 +4,24 @@
         <div class="ui middle aligned center aligned grid">
             <div class="column">
                 <h1>NTU Student Weekly</h1>
-                <form class="ui form" method="POST" action="{{ url('login') }}">
-                    <div class="field">
+                <form class="ui form{{ ' error' if form.errors else '' }}" method="POST" action="{{ url('login') }}">
+                    {% if form.errors %}
+                    <div class="ui error message">
+                        <div class="header">登入失敗</div>
+                        {% if request.user.is_authenticated() %}
+                        <p>帳號 {{ request.user.get_username() }} 已停用，請聯絡資訊小組。</p>
+                        {% else %}
+                        <p>請輸入正確的使用者與密碼。</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    <div class="field{{ ' error' if form.username.errors else '' }}">
                         <div class="ui left icon input">
                             {{ form.username }}
                             <i class="user icon"></i>
                         </div>
                     </div>
-                    <div class="field">
+                    <div class="field{{ ' error' if form.password.errors else '' }}">
                         <div class="ui left icon input">
                             {{ form.password }}
                             <i class="lock icon"></i>
