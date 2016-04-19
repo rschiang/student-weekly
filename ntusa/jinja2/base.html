@@ -4,13 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="{{ static('semantic.min.css') }}" />
+    <link rel="stylesheet" href="{{ static('citadel.css') }}" />
 
     <title>{{ meta.site_name }}</title>
 </head>
 <body>
-    <div class="ui container">
-        {% block content %}{% endblock %}
-    </div>
+    {% block content %}{% endblock %}
     <script src="{{ static('semantic.min.js') }}"></script>
 </body>
 </html>
