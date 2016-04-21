@@ -15,6 +15,7 @@ class Home(ListView):
         cur_date = now().date
         return Issue.objects.filter(pub_date__gte=cur_date).order_by('-id')
 
+
 class Settings(LoginRequiredMixin, TemplateView):
     template_name = 'settings.html'
 
@@ -26,8 +27,13 @@ class Settings(LoginRequiredMixin, TemplateView):
         })
         return context
 
+
 def login(request):
-    return auth.views.login(request, template_name='login.html', authentication_form=HintedAuthenticationForm)
+    return auth.views.login(request,
+                            template_name='login.html',
+                            authentication_form=HintedAuthenticationForm)
+
 
 def logout(request):
-    return auth.views.logout(request, next_page=reverse_lazy('home'))
+    return auth.views.logout(request,
+                             next_page=reverse_lazy('home'))
