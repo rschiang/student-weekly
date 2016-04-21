@@ -1,47 +1,47 @@
 {% extends 'base.html' %}
+{% block root_styles %}login{% endblock %}
 {% block content %}
-    <div class="weekly login">
-        <div class="ui middle aligned center aligned grid">
-            <div class="column">
-                <h1>{{ meta.site_short_name }}</h1>
-                <form class="ui form{{ ' error' if form.errors else '' }}" method="POST" action="{{ url('login') }}">
-                    {% if form.errors %}
-                    <div class="ui error message">
-                        <div class="header">登入失敗</div>
-                        {% if request.user.is_authenticated() %}
-                        <p>帳號 {{ request.user.get_username() }} 已停用，請聯絡資訊小組。</p>
-                        {% else %}
-                        <p>請輸入正確的使用者與密碼。</p>
-                        {% endif %}
-                    </div>
+    <div class="ui middle aligned center aligned grid">
+        <div class="column">
+            <h1>{{ meta.site_short_name }}</h1>
+            <form class="ui form{{ ' error' if form.errors else '' }}" method="POST" action="{{ url('login') }}">
+                {% if form.errors %}
+                <div class="ui error message">
+                    <div class="header">登入失敗</div>
+                    {% if request.user.is_authenticated() %}
+                    <p>帳號 {{ request.user.get_username() }} 已停用，請聯絡資訊小組。</p>
+                    {% else %}
+                    <p>請輸入正確的使用者與密碼。</p>
                     {% endif %}
-                    <div class="field{{ ' error' if form.username.errors else '' }}">
-                        <div class="ui left icon input">
-                            {{ form.username }}
-                            <i class="user icon"></i>
-                        </div>
+                </div>
+                {% endif %}
+                <div class="field{{ ' error' if form.username.errors else '' }}">
+                    <div class="ui left icon input">
+                        {{ form.username }}
+                        <i class="user icon"></i>
                     </div>
-                    <div class="field{{ ' error' if form.password.errors else '' }}">
-                        <div class="ui left icon input">
-                            {{ form.password }}
-                            <i class="lock icon"></i>
-                        </div>
+                </div>
+                <div class="field{{ ' error' if form.password.errors else '' }}">
+                    <div class="ui left icon input">
+                        {{ form.password }}
+                        <i class="lock icon"></i>
                     </div>
-                    <div class="field">
-                        {{ csrf_input }}
-                        <input type="hidden" name="next" value="{{ next }}" />
-                        <div class="ui fluid large buttons">
-                            <button class="ui positive button" type="submit">登入</button>
-                            <div class="or" data-text="或"></div>
-                            <a class="ui button" href="{{ url('home') }}">返回</a>
-                        </div>
+                </div>
+                <div class="field">
+                    {{ csrf_input }}
+                    <input type="hidden" name="next" value="{{ next }}" />
+                    <div class="ui fluid large buttons">
+                        <button class="ui positive button" type="submit">登入</button>
+                        <div class="or" data-text="或"></div>
+                        <a class="ui button" href="{{ url('home') }}">返回</a>
                     </div>
-                </form>
-                <footer class="weekly quoted footer">
-                    © 2016 <a href="{{ meta.site_url }}">{{ meta.site_vendor }}</a><br />
-                    <q class="quote">{{ meta.site_quote }}</q>
-                </footer>
-            </div>
+                </div>
+            </form>
+            <footer class="weekly quoted footer">
+                © 2016 <a href="{{ meta.site_url }}">{{ meta.site_vendor }}</a><br />
+                <q class="quote">{{ meta.site_quote }}</q>
+            </footer>
         </div>
     </div>
+
 {% endblock %}

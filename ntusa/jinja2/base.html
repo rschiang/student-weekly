@@ -8,7 +8,7 @@
 
     <title>{{ meta.site_name }}</title>
 </head>
-<body>
+<body class="weekly {% block root_styles %}citadel{% endblock %}">
     {% block content %}{% endblock %}
     <script src="{{ static('semantic.min.js') }}"></script>
 </body>
