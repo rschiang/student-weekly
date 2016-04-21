@@ -25,12 +25,12 @@
     {% endif %}
             <div class="column">
                 <a class="weekly issue card" href="https://ntustudents.org/weekly/issue/{{ issue.id }}">
-                    {% set image = issue.articles.objects.first.image %}
-                    {% if image %}
+                {% set image = issue.articles.objects.first.image %}
+                {% if image %}
                     <span class="cover" style="background-image: url('{{ image.url }}');"></span>
-                    {% else %}
+                {% else %}
                     <span class="cover without image"></span>
-                    {% endif %}
+                {% endif %}
                     <span class="id">{{ issue.id }}</span>
                 </a>
             </div>
