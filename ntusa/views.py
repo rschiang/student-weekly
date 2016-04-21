@@ -1,15 +1,19 @@
 from django.contrib import auth
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
+from django.utils.timezone import now
 from django.views.generic import ListView, TemplateView
 from templates.models import Template
 from issues.models import Issue, Column
 from .forms import HintedAuthenticationForm
 
 class Home(ListView):
-    queryset = Issue.objects.order_by('-id')
     context_object_name = 'issue_list'
     template_name = 'home.html'
+
+    def get_queryset(self):
+        cur_date = now().date
+        return Issue.objects.filter(pub_date__gte=cur_date).order_by('-id')
 
 class Settings(LoginRequiredMixin, TemplateView):
     template_name = 'settings.html'
