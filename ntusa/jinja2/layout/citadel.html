@@ -1,0 +1,36 @@
+{% extends 'layout/base.html' %}
+{% block content %}
+    <div class="ui inverted labeled icon left fixed vertical menu">
+        <a class="{{ 'active ' if request.resolver_match.app_name == 'issues' else '' }}item" href="{{ url('issues:list') }}">
+            <i class="newspaper icon"></i>
+            期刊
+        </a>
+        <a class="{{ 'active ' if request.resolver_match.view_name == 'settings' else '' }}item" href="{{ url('settings') }}">
+            <i class="setting icon"></i>
+            版面
+        </a>
+    </div>
+    <div class="ui container">
+    {% block ui_container %}
+        <header>
+        {% block ui_menu %}
+            <div class="ui floated right menu">
+                {% block ui_menu_content %}
+                {% endblock %}
+            </div>
+        {% endblock %}
+        {% block ui_header %}
+            <h1>{{ meta.site_short_name }}</h1>
+        {% endblock %}
+            <div class="ui hidden clearing divider"></div>
+        </header>
+        {% block ui_content %}
+        {% endblock %}
+        <footer class="weekly quoted footer">
+            <div class="ui divider"></div>
+            © 2016 <a href="{{ meta.site_url }}">{{ meta.site_vendor }}</a><br />
+            <q class="quote">{{ meta.site_quote }}</q>
+        </footer>
+    {% endblock %}
+    </div>
+{% endblock %}

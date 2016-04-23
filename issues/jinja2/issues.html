@@ -1,49 +1,28 @@
-{% extends 'layout/base.html' %}
-{% block content %}
-    <div class="ui inverted labeled icon left fixed vertical menu">
-        <a class="active item" href="{{ url('issues:list') }}">
-            <i class="newspaper icon"></i>
-            期刊
-        </a>
-        <a class="item" href="{{ url('settings') }}">
-            <i class="setting icon"></i>
-            版面
-        </a>
-    </div>
-    <div class="ui container">
-        <header>
-            <div class="ui floated right menu">
-                <a class="item" href="#">
-                    <i class="add icon"></i>
-                    建立新刊
-                </a>
-                <a class="item" href="{{ url('logout') }}">
-                    登出
-                </a>
+{% extends 'layout/citadel.html' %}
+{% block ui_menu_content %}
+    <a class="item" href="#">
+        <i class="add icon"></i>
+        建立新刊
+    </a>
+    <a class="item" href="{{ url('logout') }}">
+        登出
+    </a>
+{% endblock %}
+{% block ui_content %}
+    <div class="ui five stackable cards">
+    {% for issue in issue_list %}
+        <a class="card" href="#">
+        {% set image = issue.articles.objects.first.image %}
+        {% if image %}
+            <div class="image">
+                <img alt="第 {{ issue.id }} 期文章" src="{{ image.url }}" />
             </div>
-            <h1>{{ meta.site_short_name }}</h1>
-            <div class="ui hidden clearing divider"></div>
-        </header>
-        <div class="ui five stackable cards">
-        {% for issue in issue_list %}
-            <a class="card" href="#">
-            {% set image = issue.articles.objects.first.image %}
-            {% if image %}
-                <div class="image">
-                    <img alt="第 {{ issue.id }} 期文章" src="{{ image.url }}" />
-                </div>
-            {% endif %}
-                <div class="content">
-                    <div class="header">第 {{ issue.id }} 期</div>
-                    <div class="meta">{{ issue.pub_date }}</div>
-                </div>
-            </a>
-        {% endfor %}
-        </div>
-        <footer class="weekly quoted footer">
-            <div class="ui divider"></div>
-            © 2016 <a href="{{ meta.site_url }}">{{ meta.site_vendor }}</a><br />
-            <q class="quote">{{ meta.site_quote }}</q>
-        </footer>
+        {% endif %}
+            <div class="content">
+                <div class="header">第 {{ issue.id }} 期</div>
+                <div class="meta">{{ issue.pub_date }}</div>
+            </div>
+        </a>
+    {% endfor %}
     </div>
 {% endblock %}
