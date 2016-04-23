@@ -12,7 +12,7 @@ class Home(ListView):
     template_name = 'home.html'
 
     def get_queryset(self):
-        cur_date = now().date
+        cur_date = now().date()
         return Issue.objects.filter(pub_date__gte=cur_date).order_by('-id')
 
 

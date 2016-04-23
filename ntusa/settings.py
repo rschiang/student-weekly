@@ -83,6 +83,8 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'ntusa.urls'
 
+LOGIN_REDIRECT_URL = 'issues:list'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
