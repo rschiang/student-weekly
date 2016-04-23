@@ -9,7 +9,7 @@ from .forms import HintedAuthenticationForm
 
 class Home(ListView):
     context_object_name = 'issue_list'
-    template_name = 'home.html'
+    template_name = 'weekly/home.html'
 
     def get_queryset(self):
         cur_date = now().date()
