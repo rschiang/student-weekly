@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 class Template(models.Model):
@@ -5,7 +6,8 @@ class Template(models.Model):
     name = models.CharField(max_length=32, help_text='範本名稱')
     author = models.CharField(max_length=32, help_text='範本作者')
     description = models.TextField(blank=True, help_text='範本說明文字')
-    path = models.FilePathField(path='/opt/weekly', match=r'\.mustache$', recursive=True, max_length=128, help_text='範本檔案位置')
+    thumbnail = models.URLField(blank=True, max_length=256, help_text='範本預覽縮圖')
+    path = models.FilePathField(path=settings.THEME_ROOT, match=r'\.mustache$', recursive=True, max_length=128, help_text='範本檔案位置')
 
     # Methods
     def __str__(self):
