@@ -9,13 +9,13 @@
                 <div class="field">
                     <label>期數 #</label>
                     <div class="ui transparent big input">
-                        <input type="number" placeholder="期數" value="{{ next_issue_id }}" readonly />
+                        <input type="number" placeholder="期數" value="{{ form.get_next_issue_id() }}" readonly />
                     </div>
                 </div>
                 <div class="field">
                     <label>發行日期</label>
                     <div class="ui transparent big icon input">
-                        <input type="date" placeholder="YYYY-MM-DD" value="{{ now.date().isoformat() }}" />
+                        <input type="date" placeholder="YYYY-MM-DD" value="{{ form.pub_date }}" />
                         <i class="calendar icon"></i>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                 <label>範本</label>
             </div>
             <div class="ui three doubling cards">
-            {% for template in template_list %}
+            {% for template in form.get_templates() %}
                 <a class="weekly selectable card" data-id="{{ template.id }}">
                 {% if template.thumbnail %}
                     <div class="image">
