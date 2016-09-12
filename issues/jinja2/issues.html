@@ -1,6 +1,9 @@
 {% extends 'layout/citadel.html' %}
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+{% endblock %}
 {% block ui_menu_content %}
-    <a class="item" href="#">
+    <a id="create-issue-button" class="item" href="#">
         <i class="add icon"></i>
         建立新刊
     </a>
@@ -11,7 +14,7 @@
 {% block ui_content %}
     <div class="ui five stackable cards">
     {% for issue in issue_list %}
-        <a class="card" href="#">
+        <a class="card" href="{{ url('issues:edit', issue.id) }}">
         {% set image = issue.articles.objects.first.image %}
         {% if image %}
             <div class="image">
@@ -25,4 +28,5 @@
         </a>
     {% endfor %}
     </div>
+    {% include 'dialogs/create_issue.html' %}
 {% endblock %}

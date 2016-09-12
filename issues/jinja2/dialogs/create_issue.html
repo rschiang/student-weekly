@@ -1,0 +1,72 @@
+<div id="create-issue-dialog" class="ui small basic modal">
+    <div class="ui icon header">
+        <i class="wizard icon"></i>
+        建立新刊
+    </div>
+    <div class="content">
+        <form class="ui inverted form" action="{{ url('issues:list') }}">
+            <div class="two fields">
+                <div class="field">
+                    <label>期數 #</label>
+                    <div class="ui transparent big input">
+                        <input type="number" placeholder="期數" value="{{ next_issue_id }}" readonly />
+                    </div>
+                </div>
+                <div class="field">
+                    <label>發行日期</label>
+                    <div class="ui transparent big icon input">
+                        <input type="date" placeholder="YYYY-MM-DD" value="{{ now.date().isoformat() }}" />
+                        <i class="calendar icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label>範本</label>
+            </div>
+            <div class="ui three doubling cards">
+            {% for template in template_list %}
+                <a class="weekly selectable card" data-id="{{ template.id }}">
+                {% if template.thumbnail %}
+                    <div class="image">
+                        <img src="{{ template.thumbnail }}" />
+                    </div>
+                {% endif %}
+                    <div class="content">
+                        <div class="header">
+                            <input type="radio" id="template-{{ template.id }}" name="template" value="{{ template.id }}" {% if loop.first %}checked{% endif %} />
+                            {{ template.name }}
+                        </div>
+                        <div class="description">
+                            {{ template.description }}
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+            </div>
+        </form>
+    </div>
+    <div class="actions">
+        <div class="ui cancel basic inverted button">
+            返回
+        </div>
+        <div class="ui approve basic blue inverted button">
+            <i class="add icon"></i>
+            建立
+        </div>
+    </div>
+</div>
+<script>
+$('#create-issue-button').click(function() {
+    $('#create-issue-dialog')
+    .modal({
+        closable: false,
+        onApprove: function() {
+            $('#create-issue-dialog form').submit();
+        }
+    })
+    .modal('show');
+});
+$('.weekly.selectable.card').click(function() {
+    $('#template-' + $(this).data('id')).prop('checked', true);
+});
+</script>

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ static('citadel.css') }}" />
 
     <title>{{ meta.site_name }}</title>
+    {% block scripts %}{% endblock %}
 </head>
 <body class="weekly {% block root_styles %}citadel{% endblock %}">
     {% block content %}{% endblock %}
