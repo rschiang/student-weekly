@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import FormMixin
-from django.views.generic.detail import SingleObjectMixin
 from django.utils.timezone import now
-from issues.models import Issue
+from django.views.generic import ListView, DetailView
+from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import FormMixin
 from issues.forms import CreateIssueForm
+from issues.models import Issue
 
 class IssueList(LoginRequiredMixin, FormMixin, ListView):
     # ListView parameters
