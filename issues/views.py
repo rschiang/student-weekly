@@ -1,3 +1,6 @@
+import os
+import pystache
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect
@@ -7,6 +10,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
 from issues.forms import CreateIssueForm
 from issues.models import Issue
+from itertools import groupby
 
 class IssueList(LoginRequiredMixin, FormMixin, ListView):
     # ListView parameters
@@ -33,8 +37,28 @@ class IssueView(SingleObjectMixin, View):
         if not request.user.is_authenticated and issue.pub_date > now():
             raise Http404   # Hide the existence of unpublished issue
 
-        return HttpResponse('Wow, such issue %s' % issue.id)    # TODO: Render issue
+        template_path = issue.template.path
+        base_dir = os.path.dirname(template_path)
+        base_url = request.build_absolute_uri(settings.THEME_URL)[:-1]
+        renderer = pystache.Renderer(search_dirs=[base_dir])
+        context = {
+            'issue': issue.id,
+            'date': issue.pub_date.strftime('%Y/%m/%d'),
+            'path': base_url,
+            'email': false,
+        }
 
+        articles = issue.articles.select_related('column').order_by('column__position', 'column__id', 'id')
+        for col, items in groupby(articles, key=lambda i: i.column):
+            if col.layout not in context:
+                context[col.layout] = []
+            context[col.layout].append({
+                'name': layout.name,
+                'description': layout.description,
+                'item': list(items),
+            })
+
+        return HttpResponse(renderer.render_path(template_path, context))
 
 class IssueEdit(LoginRequiredMixin, DetailView):
     model = Issue
