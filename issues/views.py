@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect
 from django.utils.timezone import now
-from django.views.generic import ListView, DetailView
+from django.views.generic import View, ListView, DetailView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
 from issues.forms import CreateIssueForm
@@ -45,7 +45,7 @@ class IssueView(SingleObjectMixin, View):
             'issue': issue.id,
             'date': issue.pub_date.strftime('%Y/%m/%d'),
             'path': base_url,
-            'email': false,
+            'email': False,
         }
 
         articles = issue.articles.select_related('column').order_by('column__position', 'column__id', 'id')
@@ -53,12 +53,13 @@ class IssueView(SingleObjectMixin, View):
             if col.layout not in context:
                 context[col.layout] = []
             context[col.layout].append({
-                'name': layout.name,
-                'description': layout.description,
+                'name': col.name,
+                'description': col.description,
                 'item': list(items),
             })
 
         return HttpResponse(renderer.render_path(template_path, context))
+
 
 class IssueEdit(LoginRequiredMixin, DetailView):
     model = Issue

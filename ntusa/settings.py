@@ -85,6 +85,7 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'ntusa.urls'
 
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'issues:list'
 
 TEMPLATES = [

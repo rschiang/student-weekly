@@ -1,5 +1,5 @@
 from django.conf.urls import include, url
-from .views import IssueList
+from .views import IssueList, IssueEdit, IssueView
 
 app_name = 'issues'
 urlpatterns = [
