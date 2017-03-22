@@ -1,0 +1,23 @@
+<div id="{% block dialog_id %}{% endblock %}" class="ui small basic modal">
+    <div class="ui icon header">
+        <i class="{% block dialog_icon %}{% endblock %} icon"></i>
+        {% block dialog_title %}{% endblock %}
+    </div>
+    <div class="content">
+        <form class="ui inverted form" action="{% block dialog_post_url %}#{% endblock %}">
+        {% block dialog_form_content %}
+        {% endblock %}
+        </form>
+    </div>
+    <div class="actions">
+        <div class="ui cancel basic inverted button">
+            返回
+        </div>
+        <div class="ui approve basic blue inverted button">
+            <i class="{% block dialog_action_icon %}checkmark{% endblock %} icon"></i>
+            {% block dialog_action %}確認{% endblock %}
+        </div>
+    </div>
+</div>
+{% block dialog_scripts %}
+{% endblock %}
