@@ -9,7 +9,7 @@ from django.views.generic import View, ListView, DetailView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
 from issues.forms import CreateIssueForm
-from issues.models import Issue
+from issues.models import Issue, Column
 from itertools import groupby
 
 class IssueList(LoginRequiredMixin, FormMixin, ListView):
@@ -28,6 +28,13 @@ class IssueList(LoginRequiredMixin, FormMixin, ListView):
         issue = form.save()
         return redirect('issues:edit', pk=issue.id)
 
+    def post(self, request):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
 
 class IssueView(SingleObjectMixin, View):
     model = Issue
@@ -42,7 +49,7 @@ class IssueView(SingleObjectMixin, View):
 
         template_path = issue.template.path
         base_dir = os.path.dirname(template_path)
-        base_url = request.build_absolute_uri(settings.THEME_URL)[:-1]
+        base_url = request.build_absolute_uri(settings.THEME_URL + os.path.basename(base_dir))
         renderer = pystache.Renderer(search_dirs=[base_dir])
         context = {
             'issue': issue.id,
@@ -68,3 +75,8 @@ class IssueEdit(LoginRequiredMixin, DetailView):
     model = Issue
     context_object_name = 'issue'
     template_name = 'issue.html'
+
+    def get_context_data(self, **kwargs):
+        result = super().get_context_data(**kwargs)
+        result['columns'] = Column.objects.all()
+        return result

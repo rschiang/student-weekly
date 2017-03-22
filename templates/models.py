@@ -20,7 +20,7 @@ class Layout(models.Model):
     identifier = models.SlugField(max_length=32, db_index=False, help_text='版型識別碼')
 
     # Related fields
-    template = models.ForeignKey(Template, on_delete=models.CASCADE)
+    template = models.ForeignKey(Template, on_delete=models.CASCADE, related_name='layouts')
 
     # Methods
     def __str__(self):
