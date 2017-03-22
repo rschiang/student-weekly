@@ -14,8 +14,8 @@
 {% block ui_content %}
     <div class="ui five stackable cards">
     {% for issue in issue_list %}
-        <a class="card" href="{{ url('issues:edit', issue.id) }}">
-        {% set image = issue.articles.objects.first.image %}
+        <a class="card" href="{{ url('issues:edit', pk=issue.id) }}">
+        {% set image = issue.articles.first.image %}
         {% if image %}
             <div class="image">
                 <img alt="第 {{ issue.id }} 期文章" src="{{ image.url }}" />

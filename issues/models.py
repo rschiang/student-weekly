@@ -9,7 +9,7 @@ class Issue(models.Model):
     editable = models.BooleanField(default=True, editable=False, help_text='可否編輯')
 
     # Related fields
-    template = models.ForeignKey('templates.Template', on_delete=models.PROTECT, blank=True, null=True)
+    template = models.ForeignKey('templates.Template', on_delete=models.PROTECT, blank=True, null=True, related_name='issues')
 
     # Methods
     def __str__(self):
@@ -37,9 +37,9 @@ class Article(models.Model):
     url = models.URLField(blank=True, max_length=256, help_text='文章連結網址')
 
     # Related fields
-    issue = models.ForeignKey('Issue', on_delete=models.CASCADE)
-    column = models.ForeignKey('Column', on_delete=models.PROTECT)
-    provider = models.ForeignKey('Provider', null=True, on_delete=models.SET_NULL)
+    issue = models.ForeignKey('Issue', on_delete=models.CASCADE, related_name='articles')
+    column = models.ForeignKey('Column', on_delete=models.PROTECT, related_name='columns')
+    provider = models.ForeignKey('Provider', null=True, on_delete=models.SET_NULL, related_name='articles')
 
     # Methods
     def __str__(self):

@@ -37,6 +37,9 @@ class IssueView(SingleObjectMixin, View):
         if not request.user.is_authenticated and issue.pub_date > now():
             raise Http404   # Hide the existence of unpublished issue
 
+        if not issue.template:
+            return HttpResponse('No preview available')
+
         template_path = issue.template.path
         base_dir = os.path.dirname(template_path)
         base_url = request.build_absolute_uri(settings.THEME_URL)[:-1]
