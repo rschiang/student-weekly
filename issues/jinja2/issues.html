@@ -28,5 +28,7 @@
         </a>
     {% endfor %}
     </div>
-    {% include 'dialogs/create_issue.html' %}
+{% endblock %}
+{% block post_content %}
+{% include 'dialogs/create_issue.html' %}
 {% endblock %}

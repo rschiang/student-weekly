@@ -32,7 +32,7 @@ class IssueList(LoginRequiredMixin, FormMixin, ListView):
 class IssueView(SingleObjectMixin, View):
     model = Issue
 
-    def get(self, request):
+    def get(self, request, pk):
         issue = self.get_object()
         if not request.user.is_authenticated and issue.pub_date > now():
             raise Http404   # Hide the existence of unpublished issue

@@ -1,6 +1,7 @@
 {% extends 'layout/base.html' %}
 {% block content %}
     <div class="ui inverted labeled icon left fixed vertical menu">
+    {% block ui_nav_content %}
         <a class="{{ 'active ' if request.resolver_match.app_name == 'issues' else '' }}item" href="{{ url('issues:list') }}">
             <i class="newspaper icon"></i>
             期刊
@@ -9,10 +10,11 @@
             <i class="setting icon"></i>
             版面
         </a>
+    {% endblock %}
     </div>
-    <div class="ui container">
+    <div class="{% block container_styles %}ui{% endblock %} container">
     {% block ui_container %}
-        <header class="weekly page header">
+        <header class="{% block header_styles %}weekly{% endblock %} page header">
         {% block ui_menu %}
             <div class="ui floated right menu">
                 {% block ui_menu_content %}
@@ -33,4 +35,6 @@
         </footer>
     {% endblock %}
     </div>
+    {% block post_content %}
+    {% endblock %}
 {% endblock %}

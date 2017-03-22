@@ -2,6 +2,56 @@
 {% block scripts %}
 {% include 'libraries/jquery.html' %}
 {% endblock %}
+{% block root_styles %}citadel edit-page{% endblock %}
+{% block ui_nav_content %}
+    <a class="item" href="{{ url('issues:list') }}">
+        <i class="angle left icon"></i>返回列表
+    </a>
+    <a class="item" href="{{ url('issues:view', issue.id) }}">
+        <i class="external icon"></i>預覽
+    </a>
+    <a class="item" href="#">
+        <i class="code icon"></i>原始碼
+    </a>
+{% endblock %}
+{% block container_styles %}weekly{% endblock %}
+{% block header_styles %}weekly ui{% endblock %}
+{% block ui_menu %}{% endblock %}
+{% block ui_header %}
+    <h1>
+        第 {{ issue.id }} 期
+        <div class="sub header">
+            {{ issue.pub_date }} 發行
+        </div>
+    </h1>
+{% endblock %}
 {% block ui_content %}
-<p>Issue {{ issue.id }}</p>
+    {% for column in columns %}
+    <h3>{{ column.name }}</h3>
+    <div class="ui divided link items">
+    {% for article in articles %}
+        <div class="item" data-item-id="{{ article.id }}">
+            <div class="ui tiny image">
+                <img src="{{ article.image.url }}" />
+            </div>
+            <div class="content">
+                <a class="header" href="{{ article.url }}">{{ article.name }}</a>
+                <div class="meta">
+                    <span class="provider">{{ article.provider.name }}</span>
+                </div>
+                <div class="description">{{ article.content }}</div>
+            </div>
+        </div>
+    {% endfor %}
+        <div>
+            <button class="ui right floated basic button" data-add-to-column="{{ column.id }}">
+                <i class="add icon"></i>新增文章
+            </button>
+            <div class="ui hidden clearing divider"></div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
+{% block post_content %}
+    <iframe class="weekly preview" src="{{ url('issues:view', issue.id) }}"></iframe>
 {% endblock %}
