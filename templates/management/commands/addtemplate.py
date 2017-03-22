@@ -8,7 +8,7 @@ class Command(BaseCommand):
     help = 'Add the specified template to database'
 
     def add_arguments(self, parser):
-        parser.add_arguments('template_name')
+        parser.add_argument('template_name')
 
     def handle(self, *args, **options):
         template_name = options['template_name']
