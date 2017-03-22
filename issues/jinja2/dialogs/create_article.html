@@ -1,0 +1,65 @@
+<div id="{% block dialog_id %}create-article-dialog{% endblock %}" class="ui small basic modal">
+    <div class="ui icon header">
+        <i class="{% block dialog_icon %}%write{% endblock %} icon"></i>
+        {% block dialog_title %}新增文章{% endblock %}
+    </div>
+    <div class="content">
+        <form class="ui inverted form" action="{% block dialog_post_url %}{{ url('issues:view') }}{% endblock %}">
+            <div class="field">
+                <label>文章標題</label>
+                <div class="ui transparent big input">
+                    <input type="text" placeholder="標題" />
+                </div>
+            </div>
+            <div class="field">
+                <label>內文</label>
+                <textarea rows="3"></textarea>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>來源</label>
+                    <select class="ui dropdown">
+                        <option>學生會</option>
+                        <option>新聞部</option>
+                        <option>學術部</option>
+                        <option>福利部</option>
+                        <option>活動部</option>
+                        <option>文化部</option>
+                        <option>秘書部</option>
+                        <option>選委會</option>
+                        <option>財務部</option>
+                        <option>法制部</option>
+                        <option>公關部</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>照片</label>
+                    <input type="file" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="actions">
+        <div class="ui cancel basic inverted button">
+            返回
+        </div>
+        <div class="ui approve basic blue inverted button">
+            <i class="{% dialog_action_icon %}add{% endblock %} icon"></i>
+            {% block dialog_action %}建立{% endblock %}
+        </div>
+    </div>
+</div>
+{% block dialog_scripts %}
+<script>
+$('button[data-add-to-column]').click(function() {
+    $('#create-article-dialog')
+    .modal({
+        closable: false,
+        onApprove: function() {
+            window.reload();
+        }
+    })
+    .modal('show');
+});
+</script>
+{% endblock %}

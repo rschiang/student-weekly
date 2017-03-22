@@ -1,0 +1,21 @@
+{% extends 'dialog/create_article.html' %}
+{% block dialog_id %}edit-article-dialog{% endblock %}
+{% block dialog_title %}編輯文章{% endblock %}
+{% block dialog_post_url %}{{ url('issues:view') }}{% endblock %}
+{% block dialog_action_icon %}save{% endblock %}
+{% block dialog_action %}儲存{% endblock %}
+{% block dialog_scripts %}
+<script>
+$('.item[data-item-id]').click(function() {
+    $('#edit-article-dialog')
+    .modal({
+        closable: false,
+        onApprove: function() {
+            window.reload();
+        }
+    })
+    .modal('show');
+});
+$('.ui.dropdown').dropdown();
+</script>
+{% endblock %}

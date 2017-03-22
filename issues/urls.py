@@ -1,4 +1,4 @@
-from django.conf.urls import include, url
+from django.conf.urls import url
 from .views import IssueList, IssueEdit, IssueView
 
 app_name = 'issues'
