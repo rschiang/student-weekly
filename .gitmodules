@@ -1,3 +1,6 @@
 [submodule "mockups"]
 	path = mockups
 	url = https://github.com/rschiang/student-weekly-themes.git
+[submodule "themes/2012"]
+	path = themes/2012
+	url = https://github.com/NTUSA/weekly-theme-2012
