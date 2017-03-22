@@ -4,9 +4,10 @@
         {% block dialog_title %}{% endblock %}
     </div>
     <div class="content">
-        <form class="ui inverted form" action="{% block dialog_post_url %}#{% endblock %}">
+        <form class="ui inverted form" action="{% block dialog_post_url %}#{% endblock %}" method="POST">
         {% block dialog_form_content %}
         {% endblock %}
+            {{ csrf_input }}
         </form>
     </div>
     <div class="actions">

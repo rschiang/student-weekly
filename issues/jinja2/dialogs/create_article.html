@@ -1,7 +1,8 @@
+{% extends 'dialogs/base.html' %}
 {% block dialog_id %}create-article-dialog{% endblock %}
 {% block dialog_icon %}write{% endblock %}
 {% block dialog_title %}新增文章{% endblock %}
-{% block dialog_post_url %}{{ url('issues:view') }}{% endblock %}
+{% block dialog_post_url %}{{ url('issues:view', issue.id) }}{% endblock %}
 {% block dialog_form_content %}
     <div class="field">
         <label>文章標題</label>
@@ -32,11 +33,11 @@
         </div>
         <div class="field">
             <label>照片</label>
-            <input type="file" />
+            <input type="file" name="image" accept="image/*" />
         </div>
     </div>
 {% endblock %}
-{% dialog_action_icon %}add{% endblock %}
+{% block dialog_action_icon %}add{% endblock %}
 {% block dialog_action %}建立{% endblock %}
 {% block dialog_scripts %}
 <script>
