@@ -33,6 +33,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 THEME_ROOT = os.path.join(BASE_DIR, 'themes')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'vendor/semantic/dist/'),
+    os.path.join(BASE_DIR, 'vendor/js/')
 ]
 
 # Core configurations

@@ -1,4 +1,7 @@
 {% extends 'layout/citadel.html' %}
+{% block scripts %}
+{% include 'libraries/jquery.html' %}
+{% endblock %}
 {% block ui_content %}
 <p>Issue {{ issue.id }}</p>
 {% endblock %}
