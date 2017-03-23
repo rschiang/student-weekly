@@ -34,7 +34,7 @@ class Article(models.Model):
     name = models.CharField(max_length=64, help_text='文章名稱')
     content = models.TextField(blank=True, help_text='文章內容')
     image = models.ImageField(upload_to=article_image_url, blank=True, max_length=128, help_text='文章影像')
-    url = models.URLField(blank=True, max_length=256, help_text='文章連結網址')
+    url = models.URLField(blank=True, max_length=512, help_text='文章連結網址')
 
     # Related fields
     issue = models.ForeignKey('Issue', on_delete=models.CASCADE, related_name='articles')
