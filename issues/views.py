@@ -65,7 +65,13 @@ class IssueView(SingleObjectMixin, View):
             context[col.layout].append({
                 'name': col.name,
                 'description': col.description,
-                'item': list(items),
+                'item': list({
+                    'name': item.name,
+                    'url': item.url,
+                    'content': item.content,
+                    'image_url': item.image.url if item.image else None,
+                    'provider_name': item.provider.name if item.provider else None,
+                } for item in items),
             })
 
         return HttpResponse(renderer.render_path(template_path, context))
@@ -88,12 +94,13 @@ class IssueEdit(LoginRequiredMixin, DetailView):
             if request.is_ajax():
                 return JsonResponse({
                     'name': article.name, 'content': article.content, 'url': article.url,
+                    'column': article.column.id,
                     'provider': article.provider.id if article.provider else None,
                 })
         else:
             article = None
 
-        form = ArticleForm(request.POST, request.FILES, instance=article)
+        form = ArticleForm(request.POST, files=request.FILES, instance=article)
         if form.is_valid():
             form.save()
             return redirect('issues:edit', pk=pk)

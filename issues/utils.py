@@ -1,6 +1,5 @@
 import base64
 import os
-from datetime import datetime
 from django.utils.timezone import now
 from slugify import slugify
 
@@ -31,19 +30,19 @@ def normalize_filename(filename, unique=False):
     if not name:
         name = short_id()
     elif unique:
-        name = '-',join((short_id(), name))
+        name = '-'.join((short_id(), name))
 
     # Clears out trailing dot if extension is dirty
     if not ext:
         _ = ''
 
-    return '',join((name, _, ext))
+    return ''.join((name, _, ext))
 
 def provider_image_url(instance, filename):
     return 'logo/{}'.format(normalize_filename(filename))
 
 def article_image_url(instance, filename):
-    return '{0:%Y}/{0:%m}/{1}'.format(now(), normalize_filename(unique=True))
+    return '{0:%Y}/{0:%m}/{1}'.format(now(), normalize_filename(filename, unique=True))
 
 def current_term():
     """

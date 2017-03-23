@@ -4,7 +4,7 @@
         {% block dialog_title %}{% endblock %}
     </div>
     <div class="content">
-        <form class="ui inverted form" action="{% block dialog_post_url %}#{% endblock %}" method="POST">
+        <form class="ui inverted form" action="{% block dialog_post_url %}#{% endblock %}" {% block dialog_form_attrs %}{% endblock %} method="POST">
         {% block dialog_form_content %}
         {% endblock %}
             {{ csrf_input }}

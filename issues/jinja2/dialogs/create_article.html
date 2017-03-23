@@ -3,6 +3,7 @@
 {% block dialog_icon %}write{% endblock %}
 {% block dialog_title %}新增文章{% endblock %}
 {% block dialog_post_url %}{{ url('issues:edit', issue.id) }}{% endblock %}
+{% block dialog_form_attrs %}enctype="multipart/form-data"{% endblock %}
 {% block dialog_form_content %}
     <div class="field">
         <label>文章標題</label>
