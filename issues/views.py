@@ -96,6 +96,7 @@ class IssueEdit(LoginRequiredMixin, DetailView):
             if request.is_ajax():
                 return JsonResponse({
                     'name': article.name, 'content': article.content, 'url': article.url,
+                    'image': article.image.url if article.image else None,
                     'column': article.column.id,
                     'provider': article.provider.id if article.provider else None,
                 })

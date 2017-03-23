@@ -1,6 +1,17 @@
 {% extends 'dialogs/create_article.html' %}
 {% block dialog_id %}edit-article-dialog{% endblock %}
 {% block dialog_title %}編輯文章{% endblock %}
+{% block dialog_before_form %}
+    <div class="ui stackable grid">
+        <div class="four wide column">
+            <img class="ui fluid image" src="" id="edit-article-preview-image" />
+        </div>
+        <div class="twelve wide column">
+{% endblock %}
+{% block dialog_after_form %}
+        </div>
+    </div>
+{% endblock %}
 {% block dialog_post_url %}{{ url('issues:edit', issue.id) }}{% endblock %}
 {% block dialog_hidden_fields %}
     <input type="hidden" name="issue" value="{{ issue.id }}" />
@@ -14,25 +25,32 @@
 $('.item[data-item-id]').click(function() {
     article_id = $(this).data('item-id');
     $('#edit-article-id-field').val(article_id);
-    $.post('{{ url("issues:edit", issue.id) }}', {
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        article_id: article_id
-    }, function(data, status, xhr) {
-        form = $('#edit-article-dialog form');
-        for (var key in data)
-            form.find('[name="' + key + '"]').val(data[key]);
-        console.log(data);
+    $.post('{{ url("issues:edit", issue.id) }}',
+        {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            article_id: article_id
+        },
+        function(data, status, xhr) {
+            form = $('#edit-article-dialog form');
+            form.find('[name="name"]').val(data.name);
+            form.find('[name="content"]').val(data.content);
+            form.find('[name="url"]').val(data.url);
+            form.find('[name="provider"]').val(data.provider);
+            form.find('[name="column"]').val(data.column);
+            $('#edit-article-preview-image').attr('src', data.image || '');
+            console.log('XHR Status ' + status);
 
-        $('.ui.dropdown').dropdown();
-        $('#edit-article-dialog')
-        .modal({
-            closable: false,
-            onApprove: function() {
-                $('#edit-article-dialog form').submit();
-            }
-        })
-        .modal('show');
-    });
+            $('.ui.dropdown').dropdown();
+            $('#edit-article-dialog')
+            .modal({
+                closable: false,
+                onApprove: function() {
+                    $('#edit-article-dialog form').submit();
+                }
+            })
+            .modal('show');
+        }
+    );
 });
 </script>
 {% endblock %}
