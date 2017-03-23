@@ -44,6 +44,7 @@
 <script>
 $('button[data-add-to-column]').click(function() {
     $('#create-article-column-field').val($(this).data('add-to-column'));
+    $('.ui.dropdown').dropdown();
     $('#create-article-dialog')
     .modal({
         closable: false,

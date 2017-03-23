@@ -23,6 +23,7 @@ $('.item[data-item-id]').click(function() {
             form.find('[name="' + key + '"]').val(data[key]);
         console.log(data);
 
+        $('.ui.dropdown').dropdown();
         $('#edit-article-dialog')
         .modal({
             closable: false,
