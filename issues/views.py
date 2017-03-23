@@ -28,6 +28,9 @@ class IssueList(LoginRequiredMixin, FormMixin, ListView):
         issue = form.save()
         return redirect('issues:edit', pk=issue.id)
 
+    def form_invalid(self, form):
+        return redirect('issues:list')
+
     def post(self, request):
         form = self.get_form()
         if form.is_valid():
@@ -90,18 +93,20 @@ class IssueEdit(LoginRequiredMixin, DetailView):
         result['providers'] = Provider.objects.all()
         return result
 
+    def render_article_data(self, request, article):
+        return JsonResponse({
+            'name': article.name, 'content': article.content, 'url': article.url,
+            'image': article.image.url if article.image else None,
+            'column': article.column.id,
+            'provider': article.provider.id if article.provider else None,
+        })
+
     def post(self, request, pk):
+        article = None
         if 'article_id' in request.POST:
             article = get_object_or_404(Article, pk=request.POST['article_id'])
             if request.is_ajax():
-                return JsonResponse({
-                    'name': article.name, 'content': article.content, 'url': article.url,
-                    'image': article.image.url if article.image else None,
-                    'column': article.column.id,
-                    'provider': article.provider.id if article.provider else None,
-                })
-        else:
-            article = None
+                return self.render_article_data(request, article)
 
         form = ArticleForm(request.POST, files=request.FILES, instance=article)
         if form.is_valid():
