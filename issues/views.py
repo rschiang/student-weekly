@@ -71,6 +71,7 @@ class IssueView(SingleObjectMixin, View):
                     'content': item.content,
                     'image_url': request.build_absolute_uri(item.image.url) if item.image else None,
                     'provider_name': item.provider.name if item.provider else None,
+                    'provider_icon': request.build_absolute_uri(item.provider.icon.url) if item.provider and item.provider.icon else None,
                 } for item in items),
             })
 

@@ -24,11 +24,19 @@
     <div class="two fields">
         <div class="field">
             <label>來源</label>
-            <select name="provider" class="ui dropdown">
-                <<option value="">選擇…</option>
-            {% for provider in providers %}
-                <option value="{{ provider.id }}">{{ provider.name }}</option>
-            {% endfor %}
+            <div class="ui search selection dropdown">
+                <input type="hidden" name="provider" />
+                <i class="dropdown icon"></i>
+                <div class="default text">選擇…</div>
+                <div class="menu">
+                {% for provider in providers %}
+                    <div class="item" data-value="{{ provider.id }}">
+                        {% if provider.icon %}<img class="ui mini provider image" src="{{ provider.icon.url }}" />{% endif %}
+                        {{ provider.name }}
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
             </select>
         </div>
         <div class="field">
