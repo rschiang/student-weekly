@@ -29,10 +29,10 @@
 {% for column in columns %}
     <h3>{{ column.name }}</h3>
     <div class="ui divided link items">
-    {% for article in articles %}
+    {% for article in issue.articles.filter(column=column) %}
         <div class="item" data-item-id="{{ article.id }}">
             <div class="ui tiny image">
-                <img src="{{ article.image.url }}" />
+                <img src="{{ article.image.url if article.image else static('logo.png') }}" />
             </div>
             <div class="content">
                 <a class="header" href="{{ article.url }}">{{ article.name }}</a>
@@ -55,4 +55,5 @@
 {% block post_content %}
     <iframe class="weekly preview" src="{{ url('issues:view', issue.id) }}"></iframe>
 {% include 'dialogs/create_article.html' %}
+{% include 'dialogs/edit_article.html' %}
 {% endblock %}

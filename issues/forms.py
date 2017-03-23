@@ -1,5 +1,5 @@
 from django.forms import ModelForm, DateInput
-from issues.models import Issue
+from issues.models import Article, Issue
 from templates.models import Template
 
 class CreateIssueForm(ModelForm):
@@ -16,3 +16,8 @@ class CreateIssueForm(ModelForm):
     def get_next_issue_id(self):
         issue = Issue.objects.order_by('-id').first()
         return (issue.id + 1 if issue else 1)
+
+class ArticleForm(ModelForm):
+    class Meta:
+        model = Article
+        fields = ['name', 'content', 'image', 'url', 'issue', 'provider', 'column']

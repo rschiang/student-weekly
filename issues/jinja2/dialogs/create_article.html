@@ -2,33 +2,29 @@
 {% block dialog_id %}create-article-dialog{% endblock %}
 {% block dialog_icon %}write{% endblock %}
 {% block dialog_title %}新增文章{% endblock %}
-{% block dialog_post_url %}{{ url('issues:view', issue.id) }}{% endblock %}
+{% block dialog_post_url %}{{ url('issues:edit', issue.id) }}{% endblock %}
 {% block dialog_form_content %}
     <div class="field">
         <label>文章標題</label>
         <div class="ui transparent big input">
-            <input type="text" placeholder="標題" />
+            <input type="text" name="name" placeholder="標題" />
+        </div>
+    </div>
+    <div class="field">
+        <label>文章連結</label>
+        <div class="ui transparent big input">
+            <input type="url" name="url" placeholder="https://" />
         </div>
     </div>
     <div class="field">
         <label>內文</label>
-        <textarea rows="3"></textarea>
+        <textarea name="content" rows="3"></textarea>
     </div>
     <div class="two fields">
         <div class="field">
             <label>來源</label>
-            <select class="ui dropdown">
-                <option>學生會</option>
-                <option>新聞部</option>
-                <option>學術部</option>
-                <option>福利部</option>
-                <option>活動部</option>
-                <option>文化部</option>
-                <option>秘書部</option>
-                <option>選委會</option>
-                <option>財務部</option>
-                <option>法制部</option>
-                <option>公關部</option>
+            <select name="provider" class="ui dropdown">
+                {% for provider in providers %}<option value="{{ provider.id }}">{{ provider.name }}</option>{% endfor %}
             </select>
         </div>
         <div class="field">
@@ -36,17 +32,22 @@
             <input type="file" name="image" accept="image/*" />
         </div>
     </div>
+    {% block dialog_hidden_fields %}
+    <input type="hidden" name="issue" value="{{ issue.id }}" />
+    <input type="hidden" name="column" id="create-article-column-field" />
+    {% endblock %}
 {% endblock %}
 {% block dialog_action_icon %}add{% endblock %}
 {% block dialog_action %}建立{% endblock %}
 {% block dialog_scripts %}
 <script>
 $('button[data-add-to-column]').click(function() {
+    $('#create-article-column-field').val($(this).data('add-to-column'));
     $('#create-article-dialog')
     .modal({
         closable: false,
         onApprove: function() {
-            window.reload();
+            $('#create-article-dialog form').submit();
         }
     })
     .modal('show');

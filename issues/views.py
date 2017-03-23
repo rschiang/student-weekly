@@ -2,14 +2,14 @@ import os
 import pystache
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404, HttpResponse
-from django.shortcuts import redirect
+from django.http import Http404, HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, redirect
 from django.utils.timezone import now
-from django.views.generic import View, ListView, DetailView
+from django.views.generic import DetailView, ListView, View
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
-from issues.forms import CreateIssueForm
-from issues.models import Issue, Column
+from issues.forms import ArticleForm, CreateIssueForm
+from issues.models import Article, Column, Issue, Provider
 from itertools import groupby
 
 class IssueList(LoginRequiredMixin, FormMixin, ListView):
@@ -79,4 +79,22 @@ class IssueEdit(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         result = super().get_context_data(**kwargs)
         result['columns'] = Column.objects.all()
+        result['providers'] = Provider.objects.all()
         return result
+
+    def post(self, request, pk):
+        if 'article_id' in request.POST:
+            article = get_object_or_404(Article, pk=request.POST['article_id'])
+            if request.is_ajax():
+                return JsonResponse({
+                    'name': article.name, 'content': article.content, 'url': article.url,
+                    'provider': article.provider.id if article.provider else None,
+                })
+        else:
+            article = None
+
+        form = ArticleForm(request.POST, request.FILES, instance=article)
+        if form.is_valid():
+            form.save()
+            return redirect('issues:edit', pk=pk)
+        return JsonResponse(form.errors)
