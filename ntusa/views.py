@@ -13,7 +13,7 @@ class Home(ListView):
 
     def get_queryset(self):
         cur_date = now().date()
-        return Issue.objects.filter(pub_date__gte=cur_date).order_by('-id')
+        return Issue.objects.filter(pub_date__lte=cur_date).order_by('-id')
 
 
 class Settings(LoginRequiredMixin, TemplateView):

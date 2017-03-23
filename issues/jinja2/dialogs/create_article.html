@@ -25,7 +25,10 @@
         <div class="field">
             <label>來源</label>
             <select name="provider" class="ui dropdown">
-                {% for provider in providers %}<option value="{{ provider.id }}">{{ provider.name }}</option>{% endfor %}
+                <<option value="">選擇…</option>
+            {% for provider in providers %}
+                <option value="{{ provider.id }}">{{ provider.name }}</option>
+            {% endfor %}
             </select>
         </div>
         <div class="field">
