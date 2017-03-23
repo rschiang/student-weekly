@@ -3,7 +3,7 @@ import pystache
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.timezone import now
 from django.views.generic import DetailView, ListView, View
 from django.views.generic.detail import SingleObjectMixin
@@ -48,7 +48,7 @@ class IssueView(SingleObjectMixin, View):
             raise Http404   # Hide the existence of unpublished issue
 
         if not issue.template:
-            return HttpResponse('No preview available')
+            return render(request, 'blank.html')
 
         template_path = issue.template.path
         base_dir = os.path.dirname(template_path)

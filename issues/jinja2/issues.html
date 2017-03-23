@@ -25,6 +25,15 @@
                 <div class="header">第 {{ issue.id }} 期</div>
                 <div class="meta">{{ issue.pub_date }}</div>
             </div>
+        {% if not issue.template %}
+            <div class="ui right corner label"  data-tooltip="由舊系統匯入">
+                <i class="lock icon"></i>
+            </div>
+        {% elif issue.pub_date > now().date() %}
+            <div class="ui green right corner label"  data-tooltip="尚未發佈">
+                <i class="wait icon"></i>
+            </div>
+        {% endif %}
         </a>
     {% endfor %}
     </div>
