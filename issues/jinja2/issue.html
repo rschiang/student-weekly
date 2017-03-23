@@ -10,9 +10,11 @@
     <a class="item" href="{{ url('issues:view', issue.id) }}" target="_blank">
         <i class="external icon"></i>預覽
     </a>
+    {% if issue.template %}
     <a class="item" href="{{ url('issues:view', issue.id) }}?email" target="_blank">
         <i class="code icon"></i>原始碼
     </a>
+    {% endif %}
 {% endblock %}
 {% block container_styles %}weekly{% endblock %}
 {% block header_styles %}weekly ui{% endblock %}
@@ -26,6 +28,7 @@
     </h1>
 {% endblock %}
 {% block ui_content %}
+{% if issue.template %}
 {% for column in columns %}
     <h3>{{ column.name }}</h3>
     <div class="ui divided link items">
@@ -51,6 +54,18 @@
         </div>
     </div>
 {% endfor %}
+{% else %}
+    <form class="ui fluid form" style="text-align: center;" action="{{ url('issues:edit', issue.id) }}" method="POST">
+        {{ csrf_input }}
+        <input type="hidden" name="action" value="unlock" />
+        <button class="ui red button" type="submit">
+            <i class="unlock icon"></i>解除鎖定
+        </button>
+        <div class="ui pointing label">
+            超危險™：按下 [解除鎖定] 後，將會覆蓋原本的舊資料。
+        </div>
+    </form>
+{% endif %}
 {% endblock %}
 {% block post_content %}
     <iframe class="weekly preview" src="{{ url('issues:view', issue.id) }}"></iframe>

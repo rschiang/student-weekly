@@ -11,6 +11,7 @@ from django.views.generic.edit import FormMixin
 from issues.forms import ArticleForm, CreateIssueForm
 from issues.models import Article, Column, Issue, Provider
 from itertools import groupby
+from templates.models import Template
 
 class IssueList(LoginRequiredMixin, FormMixin, ListView):
     # ListView parameters
@@ -102,6 +103,13 @@ class IssueEdit(LoginRequiredMixin, DetailView):
         })
 
     def post(self, request, pk):
+        issue = self.get_object()
+        if not issue.template:
+            if request.POST.get('action') == 'unlock':
+                issue.template = Template.objects.first()
+                issue.save()
+            return redirect('issues:edit', pk=pk)
+
         article = None
         if 'article_id' in request.POST:
             article = get_object_or_404(Article, pk=request.POST['article_id'])
@@ -112,4 +120,5 @@ class IssueEdit(LoginRequiredMixin, DetailView):
         if form.is_valid():
             form.save()
             return redirect('issues:edit', pk=pk)
+
         return JsonResponse(form.errors)
