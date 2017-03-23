@@ -55,7 +55,7 @@ class IssueView(SingleObjectMixin, View):
             'issue': issue.id,
             'date': issue.pub_date.strftime('%Y/%m/%d'),
             'path': base_url,
-            'email': False,
+            'email': 'email' in request.GET,
         }
 
         articles = issue.articles.select_related('column').order_by('column__position', 'column__id', 'id')
@@ -74,7 +74,8 @@ class IssueView(SingleObjectMixin, View):
                 } for item in items),
             })
 
-        return HttpResponse(renderer.render_path(template_path, context))
+        content_type = 'text/plain; charset=utf-8' if 'email' in request.GET else None
+        return HttpResponse(renderer.render_path(template_path, context), content_type=content_type)
 
 
 class IssueEdit(LoginRequiredMixin, DetailView):

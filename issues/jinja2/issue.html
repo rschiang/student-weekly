@@ -10,7 +10,7 @@
     <a class="item" href="{{ url('issues:view', issue.id) }}" target="_blank">
         <i class="external icon"></i>預覽
     </a>
-    <a class="item" href="#">
+    <a class="item" href="{{ url('issues:view', issue.id) }}?email" target="_blank">
         <i class="code icon"></i>原始碼
     </a>
 {% endblock %}
