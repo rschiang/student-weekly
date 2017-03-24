@@ -1,6 +1,3 @@
-import os
-import pystache
-from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -10,7 +7,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormMixin
 from issues.forms import ArticleForm, CreateIssueForm
 from issues.models import Article, Column, Issue, Provider
-from itertools import groupby
+from issues.renderers import IssueRenderer
 from templates.models import Template
 
 class IssueList(LoginRequiredMixin, FormMixin, ListView):
@@ -51,36 +48,14 @@ class IssueView(SingleObjectMixin, View):
         if not issue.template:
             return render(request, 'blank.html')
 
-        template_path = issue.template.path
-        base_dir = os.path.dirname(template_path)
-        base_url = request.build_absolute_uri(settings.THEME_URL + os.path.basename(base_dir))
-        renderer = pystache.Renderer(search_dirs=[base_dir])
-        context = {
-            'issue': issue.id,
-            'date': issue.pub_date.strftime('%Y/%m/%d'),
-            'path': base_url,
-            'email': 'email' in request.GET,
-        }
+        is_email = ('email' in request.GET)
+        renderer = IssueRenderer(request, issue, is_email=is_email)
+        content = renderer.render()
 
-        articles = issue.articles.select_related('column').order_by('column__position', 'column__id', 'id')
-        for col, items in groupby(articles, key=lambda i: i.column):
-            if col.layout not in context:
-                context[col.layout] = []
-            context[col.layout].append({
-                'name': col.name,
-                'description': col.description,
-                'item': list({
-                    'name': item.name,
-                    'url': item.url,
-                    'content': item.content,
-                    'image_url': request.build_absolute_uri(item.image.url if item.image else '/assets/placeholder-large.png'),
-                    'provider_name': item.provider.name if item.provider else None,
-                    'provider_icon': request.build_absolute_uri(item.provider.icon.url) if item.provider and item.provider.icon else None,
-                } for item in items),
-            })
-
-        content_type = 'text/plain; charset=utf-8' if 'email' in request.GET else None
-        return HttpResponse(renderer.render_path(template_path, context), content_type=content_type)
+        if is_email:
+            return HttpResponse(content, content_type='text/plain; charset=utf-8')
+        else:
+            return HttpResponse(content)
 
 
 class IssueEdit(LoginRequiredMixin, DetailView):
