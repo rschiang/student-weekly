@@ -12,7 +12,7 @@ import os
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
-LANGUAGE_CODE = 'zh-TW'
+LANGUAGE_CODE = 'zh-Hant'
 TIME_ZONE = 'Asia/Taipei'
 
 USE_I18N = True
@@ -31,6 +31,7 @@ THEME_URL = '/themes/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 THEME_ROOT = os.path.join(BASE_DIR, 'themes')
+RENDERED_ISSUE_ROOT = os.path.join(BASE_DIR, 'weekly')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'vendor/semantic/dist/'),
     os.path.join(BASE_DIR, 'vendor/js/')
@@ -49,6 +50,7 @@ DATABASES = {
 if not DEBUG:
     MEDIA_ROOT = os.environ['DJANGO_MEDIA_ROOT']
     STATIC_ROOT = os.environ['DJANGO_STATIC_ROOT']
+    RENDERED_ISSUE_ROOT = os.environ['DJANGO_ISSUE_ROOT']
     SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
     ALLOWED_HOSTS = os.environ['SERVER_HOST'].split(',')
     DATABASES['default'] = {
@@ -73,13 +75,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
