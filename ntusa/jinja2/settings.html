@@ -1,17 +1,21 @@
 {% extends 'layout/citadel.html' %}
-{% block ui_menu_content %}
+{% block scripts %}
+{% include 'libraries/jquery.html' %}
+{% endblock %}
+{% block ui_menu %}
     {# Disable floating menu #}
 {% endblock %}
 {% block ui_header %}
     <h1>版面設定</h1>
 {% endblock %}
-{% block ui_menu %}{% endblock %}
 {% block ui_content %}
     <div class="ui grid">
         <div class="six wide column">
             <h3>
                 來源提供
-                <button class="ui right floated basic circular icon button"><i class="add icon"></i></button>
+                <button class="ui right floated basic circular icon button" id="create-provider-button">
+                    <i class="add icon"></i>
+                </button>
             </h3>
             <div class="ui middle aligned selection list">
             {% for provider in provider_list %}
@@ -30,4 +34,7 @@
             <p>請聯絡<a href="mailto:admin@ntustudents.org">學生會資訊小組</a>。</p>
         </div>
     </div>
+{% endblock %}
+{% block post_content %}
+{% include 'dialogs/create_provider.html' %}
 {% endblock %}

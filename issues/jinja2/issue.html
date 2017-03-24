@@ -35,7 +35,7 @@
     {% for article in issue.articles.filter(column=column) %}
         <div class="item" data-item-id="{{ article.id }}">
             <div class="ui tiny image">
-                <img src="{{ article.image.url if article.image else static('logo.png') }}" />
+                <img src="{{ article.image.url if article.image else static('placeholder.png') }}" />
             </div>
             <div class="content">
                 <a class="header" href="{{ article.url }}">{{ article.name }}</a>

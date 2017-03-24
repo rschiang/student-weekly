@@ -73,7 +73,7 @@ class IssueView(SingleObjectMixin, View):
                     'name': item.name,
                     'url': item.url,
                     'content': item.content,
-                    'image_url': request.build_absolute_uri(item.image.url) if item.image else None,
+                    'image_url': request.build_absolute_uri(item.image.url if item.image else '/assets/placeholder-large.png'),
                     'provider_name': item.provider.name if item.provider else None,
                     'provider_icon': request.build_absolute_uri(item.provider.icon.url) if item.provider and item.provider.icon else None,
                 } for item in items),
@@ -97,7 +97,7 @@ class IssueEdit(LoginRequiredMixin, DetailView):
     def render_article_data(self, request, article):
         return JsonResponse({
             'name': article.name, 'content': article.content, 'url': article.url,
-            'image': article.image.url if article.image else None,
+            'image': article.image.url if article.image else '/assets/placeholder.png',
             'column': article.column.id,
             'provider': article.provider.id if article.provider else None,
         })
