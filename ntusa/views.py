@@ -3,8 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
 from django.utils.timezone import now
 from django.views.generic import ListView, TemplateView
-from templates.models import Template
-from issues.models import Issue, Column
+from issues.models import Issue, Provider
 from .forms import HintedAuthenticationForm
 
 class Home(ListView):
@@ -22,8 +21,7 @@ class Settings(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(Settings, self).get_context_data(**kwargs)
         context.update({
-            'column_list': Column.objects.all(),
-            'template_list': Template.objects.all(),
+            'provider_list': Provider.objects.exclude(site_url__exact=''),
         })
         return context
 

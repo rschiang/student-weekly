@@ -5,8 +5,29 @@
 {% block ui_header %}
     <h1>版面設定</h1>
 {% endblock %}
+{% block ui_menu %}{% endblock %}
 {% block ui_content %}
-    <div>
-        <p>設定將會顯示在這裡。</p>
+    <div class="ui grid">
+        <div class="six wide column">
+            <h3>
+                來源提供
+                <button class="ui right floated basic circular icon button"><i class="add icon"></i></button>
+            </h3>
+            <div class="ui middle aligned selection list">
+            {% for provider in provider_list %}
+                <div class="item">
+                    {% if provider.icon %}<img class="ui mini image" src="{{ provider.icon.url }}" />{% endif %}
+                    <div class="content">
+                        <a class="header" href="{{ provider.site_url }}" target="_blank">{{ provider.name }}</a>
+                        <div class="description">{{ provider.description }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        <div class="ten wide column">
+            <h3>疑難排解</h3>
+            <p>請聯絡<a href="mailto:admin@ntustudents.org">學生會資訊小組</a>。</p>
+        </div>
     </div>
 {% endblock %}
