@@ -25,7 +25,7 @@
     {% endif %}
             <div class="column">
                 <a class="weekly issue card" href="https://ntustudents.org/weekly/issue/{{ issue.id }}">
-                {% set image = issue.articles.first().image %}
+                {% set image = issue.get_cover_image() %}
                 {% if image %}
                     <span class="cover" style="background-image: url('{{ image.url }}');"></span>
                 {% else %}

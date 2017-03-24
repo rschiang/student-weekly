@@ -15,6 +15,10 @@ class Issue(models.Model):
     def __str__(self):
         return '#{}'.format(self.id)
 
+    def get_cover_image(self):
+        first_article = self.articles.exclude(image__exact='').first()
+        return first_article.image if first_article else None
+
 
 class Column(models.Model):
     # Fields
