@@ -48,3 +48,8 @@ class IssueRenderer(object):
                 context['provider_icon'] = self.build_absolute_uri(provider.icon.url)
 
         return context
+
+    def render_to_file(self):
+        path = os.path.join(settings.RENDERED_ISSUE_ROOT, '{}.html'.format(self.issue.id))
+        with open(path, 'w+') as f:
+            f.write(self.render())

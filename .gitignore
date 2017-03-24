@@ -12,6 +12,7 @@ node_modules/
 # Static directories
 assets/
 media/
+weekly/
 
 # Debugging
 dev.sqlite3

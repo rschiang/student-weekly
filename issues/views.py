@@ -94,6 +94,7 @@ class IssueEdit(LoginRequiredMixin, DetailView):
         form = ArticleForm(request.POST, files=request.FILES, instance=article)
         if form.is_valid():
             form.save()
+            IssueRenderer(request, issue).render_to_file()
             return redirect('issues:edit', pk=pk)
 
         return JsonResponse(form.errors)
