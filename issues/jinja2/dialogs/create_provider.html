@@ -1,0 +1,47 @@
+{% extends 'dialogs/base.html' %}
+{% block dialog_id %}create-provider-dialog{% endblock %}
+{% block dialog_icon %}feed{% endblock %}
+{% block dialog_title %}新增來源{% endblock %}
+{% block dialog_post_url %}{{ url('settings') }}{% endblock %}
+{% block dialog_form_attrs %}enctype="multipart/form-data"{% endblock %}
+{% block dialog_form_content %}
+    <div class="two fields">
+        <div class="field">
+            <label>來源名稱</label>
+            <div class="ui transparent big input">
+                <input type="text" name="name" placeholder="名稱" maxlength="32" />
+            </div>
+        </div>
+        <div class="field">
+            <label>圖示</label>
+            <input type="file" name="icon" accept="image/*" />
+        </div>
+    </div>
+    <div class="field">
+        <label>網站連結</label>
+        <div class="ui transparent big input">
+            <input type="url" name="site_url" placeholder="https://" maxlength="256" />
+        </div>
+    </div>
+    <div class="field">
+        <label>說明</label>
+        <textarea name="description" rows="3"></textarea>
+    </div>
+
+{% endblock %}
+{% block dialog_action_icon %}add{% endblock %}
+{% block dialog_action %}建立{% endblock %}
+{% block dialog_scripts %}
+<script>
+$('#create-provider-button').click(function() {
+    $('#create-provider-dialog')
+    .modal({
+        closable: false,
+        onApprove: function() {
+            $('#create-provider-dialog form').submit();
+        }
+    })
+    .modal('show');
+});
+</script>
+{% endblock %}

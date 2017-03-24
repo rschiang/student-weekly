@@ -1,5 +1,5 @@
-from django.forms import ModelForm, DateInput
-from issues.models import Article, Issue
+from django.forms import DateInput, ModelForm, ValidationError
+from issues.models import Article, Issue, Provider
 from templates.models import Template
 
 class CreateIssueForm(ModelForm):
@@ -21,3 +21,15 @@ class ArticleForm(ModelForm):
     class Meta:
         model = Article
         fields = ['name', 'content', 'image', 'url', 'issue', 'provider', 'column']
+
+class ProviderForm(ModelForm):
+    class Meta:
+        model = Provider
+        fields = ['name', 'description', 'icon', 'site_url']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if not cleaned_data.get('site_url'):
+            raise ValidationError('All manually created provider requires site URL.')
+        elif not cleaned_data.get('description'):
+            raise ValidationError('All manually created provider requires description.')
