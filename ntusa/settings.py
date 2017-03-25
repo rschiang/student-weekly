@@ -22,11 +22,14 @@ USE_TZ = True
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Allow override project base path if rewrite not working
+BASE_PATH = os.environ.get('DJANGO_SCRIPT_NAME', '')
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-MEDIA_URL = '/media/'
-STATIC_URL = '/assets/'
-THEME_URL = '/themes/'
+MEDIA_URL = BASE_PATH + '/media/'
+STATIC_URL = BASE_PATH + '/assets/'
+THEME_URL = BASE_PATH + '/themes/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
@@ -34,7 +37,7 @@ THEME_ROOT = os.path.join(BASE_DIR, 'themes')
 RENDERED_ISSUE_ROOT = os.path.join(BASE_DIR, 'weekly')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'vendor/semantic/dist/'),
-    os.path.join(BASE_DIR, 'vendor/js/')
+    os.path.join(BASE_DIR, 'vendor/js/'),
 ]
 
 # Core configurations
@@ -53,6 +56,7 @@ if not DEBUG:
     RENDERED_ISSUE_ROOT = os.environ['DJANGO_ISSUE_ROOT']
     SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
     ALLOWED_HOSTS = os.environ['SERVER_HOST'].split(',')
+    FORCE_SCRIPT_NAME = BASE_PATH or None
     DATABASES['default'] = {
         'ENGINE': ('django.db.backends.mysql'),
         'HOST': os.environ.get('DATABASE_HOST', ''),
