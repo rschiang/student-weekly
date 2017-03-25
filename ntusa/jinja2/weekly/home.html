@@ -13,7 +13,7 @@
         <img alt="{{ meta.site_name }}" class="weekly site title" src="assets/title.svg" />
     </div>
     <div class="content">
-    {% for term, issues in issue_list|groupby('term') %}
+    {% for term, issues in issue_list|lazy_groupby('term') %}
         <h2 class="weekly term">第 {{ term }} 屆</h2>
         <div class="ui stackable padded four column grid">
         {% for issue in issues %}
