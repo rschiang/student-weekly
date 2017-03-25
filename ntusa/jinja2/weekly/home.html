@@ -13,16 +13,10 @@
         <img alt="{{ meta.site_name }}" class="weekly site title" src="assets/title.svg" />
     </div>
     <div class="content">
-    {% set term = none %}
-    {% for issue in issue_list %}
-    {% if issue.term != term %}
-        {% if not loop.first %}{# <!-- #}
-        </div>
-        {% endif %}{# --> #}
-        {% set term = issue.term %}
+    {% for term, issues in issue_list|groupby('term') %}
         <h2 class="weekly term">第 {{ term }} 屆</h2>
         <div class="ui stackable padded four column grid">
-    {% endif %}
+        {% for issue in issues %}
             <div class="column">
                 <a class="weekly issue card" href="https://ntustudents.org/weekly/issue/{{ issue.id }}">
                 {% set image = issue.get_cover_image() %}
@@ -34,9 +28,8 @@
                     <span class="id">{{ issue.id }}</span>
                 </a>
             </div>
-    {% if loop.last %}
+        {% endfor %}
         </div>
-    {% endif %}
     {% endfor %}
     </div>
     <div class="footer">

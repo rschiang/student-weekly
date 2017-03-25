@@ -16,7 +16,7 @@ class Command(BaseCommand):
             meta_path = os.path.join(settings.THEME_ROOT, template_name, 'theme.json')
             with open(meta_path, 'r') as f:
                 meta = json.load(f)
-        except json.JSONDecodeError:
+        except ValueError:
             raise CommandError('theme.json incorrectly formatted')
         except FileNotFoundError:
             raise CommandError('theme.json does not exist for template “%s”' % template_name)
