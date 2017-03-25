@@ -33,4 +33,11 @@ class Command(BaseCommand):
         template.path = template_path
         template.save()
 
+        layouts = meta.get('layouts')
+        if isinstance(layouts, dict):
+            for key, value in layouts.items():
+                template.layouts.create(name=value, identifier=key)
+        else:
+            self.stdout.write(self.style.WARNING('No layouts specified for this template'))
+
         self.stdout.write(self.style.SUCCESS('Successfully add new template (#%s)' % template.id))
