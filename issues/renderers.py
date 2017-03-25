@@ -51,5 +51,5 @@ class IssueRenderer(object):
 
     def render_to_file(self):
         path = os.path.join(settings.RENDERED_ISSUE_ROOT, '{}.html'.format(self.issue.id))
-        with open(path, 'w+') as f:
+        with open(path, 'w+', encoding='utf-8') as f:
             f.write(self.render())
