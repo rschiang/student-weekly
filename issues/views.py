@@ -76,9 +76,10 @@ class IssueEdit(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         result = super().get_context_data(**kwargs)
         issue = self.get_object()
-        layouts = issue.template.layouts.values('identifier')
-        result['columns'] = Column.objects.filter(layout__in=layouts)
-        result['providers'] = Provider.objects.all()
+        if issue.template:
+            layouts = issue.template.layouts.values('identifier')
+            result['columns'] = Column.objects.filter(layout__in=layouts)
+            result['providers'] = Provider.objects.all()
         return result
 
     def render_article_data(self, request, article):
