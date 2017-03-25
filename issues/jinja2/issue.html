@@ -11,7 +11,7 @@
         <i class="external icon"></i>預覽
     </a>
     {% if issue.template %}
-    <a class="item" href="{{ url('issues:view', issue.id) }}?email" target="_blank">
+    <a class="item" href="{{ url('issues:preview', issue.id) }}?email" target="_blank">
         <i class="code icon"></i>原始碼
     </a>
     {% endif %}
@@ -68,7 +68,7 @@
 {% endif %}
 {% endblock %}
 {% block post_content %}
-    <iframe class="weekly preview" src="{{ url('issues:view', issue.id) }}"></iframe>
+    <iframe class="weekly preview" src="{{ url('issues:preview', issue.id) }}"></iframe>
 {% include 'dialogs/create_article.html' %}
 {% include 'dialogs/edit_article.html' %}
 {% endblock %}

@@ -42,8 +42,18 @@ class IssueView(SingleObjectMixin, View):
 
     def get(self, request, pk):
         issue = self.get_object()
-        if not request.user.is_authenticated and issue.pub_date > now():
+        if not issue.template or not request.user.is_authenticated and issue.pub_date > now().date():
             raise Http404   # Hide the existence of unpublished issue
+
+        renderer = IssueRenderer(request, issue)
+        return HttpResponse(renderer.render())
+
+
+class IssuePreview(LoginRequiredMixin, SingleObjectMixin, View):
+    model = Issue
+
+    def get(self, request, pk):
+        issue = self.get_object()
 
         if not issue.template:
             return render(request, 'blank.html')
