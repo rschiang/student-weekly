@@ -56,7 +56,7 @@ class IssuePreview(LoginRequiredMixin, SingleObjectMixin, View):
         issue = self.get_object()
 
         if not issue.template:
-            return render(request, 'blank.html')
+            return render(request, 'messages/preview_unavailable.html')
 
         is_email = ('email' in request.GET)
         renderer = IssueRenderer(request, issue, is_email=is_email)
