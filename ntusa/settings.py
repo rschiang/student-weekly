@@ -131,6 +131,10 @@ SITE_META = {
     'site_vendor': '國立臺灣大學學生會',
     'site_url': 'https://ntustudents.org',
     'site_quote': '我們貢獻這所大學之精神於宇宙。',
+    'site_maintainer': {
+        'name': '學生會資訊小組',
+        'email': 'admin@ntustudents.org',
+    },
 }
 
 WSGI_APPLICATION = 'ntusa.wsgi.application'
