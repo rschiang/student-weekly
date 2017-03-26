@@ -78,11 +78,13 @@
 {% endif %}
 {% endblock %}
 {% block post_content %}
-{% if issue.editable %}
+{% if issue.template %}
     <iframe class="weekly preview" src="{{ url('issues:preview', issue.id) }}"></iframe>
-    {% include 'dialogs/create_article.html' %}
-    {% include 'dialogs/edit_article.html' %}
 {% else %}
     <iframe class="weekly preview" src="{{ url('issues:view', issue.id) }}"></iframe>
+{% endif %}
+{% if issue.editable %}
+    {% include 'dialogs/create_article.html' %}
+    {% include 'dialogs/edit_article.html' %}
 {% endif %}
 {% endblock %}
