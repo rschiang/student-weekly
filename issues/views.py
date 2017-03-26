@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404, HttpResponseForbidden, HttpResponse, JsonResponse
+from django.core.exceptions import PermissionDenied
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.timezone import now
 from django.views.generic import DetailView, ListView, View
@@ -93,7 +94,7 @@ class IssueEdit(LoginRequiredMixin, DetailView):
     def post(self, request, pk):
         issue = self.get_object()
         if not issue.editable:
-            return HttpResponseForbidden()
+            raise PermissionDenied
 
         if not issue.template:
             if request.POST.get('action') == 'overwrite':

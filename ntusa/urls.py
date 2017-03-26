@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls import include, url
-from .views import Home, Settings, login, logout
+from .views import Home, Settings, login, logout, page_not_found, permission_denied
 
 urlpatterns = [
     url(r'^$', Home.as_view(), name='home'),
@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'^logout/$', logout, name='logout'),
     url(r'^settings/$', Settings.as_view(), name='settings'),
     url(r'^issue/', include('issues.urls')),
+    url(r'^404/$', page_not_found),
+    url(r'^403/$', permission_denied),
 ]
 
 if settings.DEBUG:

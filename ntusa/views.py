@@ -1,7 +1,7 @@
 from django.contrib import auth
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.utils.timezone import now
 from django.views.generic import ListView, TemplateView
 from issues.forms import ProviderForm
@@ -43,3 +43,9 @@ def login(request):
 def logout(request):
     return auth.views.logout(request,
                              next_page=reverse_lazy('home'))
+
+def page_not_found(request):
+    return render(request, '404.html')
+
+def permission_denied(request):
+    return render(request, '403.html')

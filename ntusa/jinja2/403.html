@@ -1,0 +1,7 @@
+{% extends 'messages/base.html' %}
+{% block message_icon %}ban{% endblock %}
+{% block message_title %}禁止存取{% endblock %}
+{% block message_content %}
+    沒有權限讀取或是執行所選的動作。<br />
+    按一下<a href="{{ url('home') }}">這裡</a>回到電子報首頁。
+{% endblock %}

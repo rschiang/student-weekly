@@ -1,0 +1,7 @@
+{% extends 'messages/base.html' %}
+{% block message_icon %}warning{% endblock %}
+{% block message_title %}伺服器錯誤{% endblock %}
+{% block message_content %}
+    嗚呃，發生了些不妙的事情。<br />
+    請聯絡<a href="mailto:{{ meta.site_maintainer.email }}">{{ meta.site_maintainer.name }}</a>，或是<a href="javascript:window.history.back()">回到上一頁</a>。
+{% endblock %}

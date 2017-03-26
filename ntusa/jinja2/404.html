@@ -1,0 +1,6 @@
+{% extends 'messages/base.html' %}
+{% block message_title %}找不到頁面{% endblock %}
+{% block message_content %}
+    這期頁面不存在、或是可能遺失了。<br />
+    按一下<a href="{{ url('home') }}">這裡</a>回到電子報首頁。
+{% endblock %}
