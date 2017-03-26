@@ -28,6 +28,11 @@
     </h1>
 {% endblock %}
 {% block ui_content %}
+{% if not issue.editable %}
+    <div class="ui message">
+        這期電子報已經歸檔，無法編輯。
+    </div>
+{% endif %}
 {% if issue.template %}
 {% for column in columns %}
     <h3>{{ column.name }}</h3>
@@ -46,29 +51,38 @@
             </div>
         </div>
     {% endfor %}
+    {% if issue.editable %}
         <div>
             <button class="ui right floated basic button" data-add-to-column="{{ column.id }}">
                 <i class="add icon"></i>新增文章
             </button>
             <div class="ui hidden clearing divider"></div>
         </div>
+    {% endif %}
     </div>
 {% endfor %}
-{% else %}
-    <form class="ui fluid form" style="text-align: center;" action="{{ url('issues:edit', issue.id) }}" method="POST">
+{% elif issue.editable %}
+    <div class="ui attached message">
+        這期電子報還沒有被歸檔，目前顯示的還是舊系統產生的內容。如果要正確顯示這期電子報，請點選 <strong>[開始編輯]</strong>，並重新上傳該期的文章內容與照片。
+    </div>
+    <form class="ui attached fluid form segment" style="text-align: center;" action="{{ url('issues:edit', issue.id) }}" method="POST">
         {{ csrf_input }}
-        <input type="hidden" name="action" value="unlock" />
+        <input type="hidden" name="action" value="overwrite" />
         <button class="ui red button" type="submit">
-            <i class="unlock icon"></i>解除鎖定
+            <i class="write icon"></i>開始編輯
         </button>
         <div class="ui pointing label">
-            超危險™：按下 [解除鎖定] 後，將會覆蓋原本的舊資料。
+            注意™：按下 [開始編輯] 後，將會覆蓋原本的舊資料。
         </div>
     </form>
 {% endif %}
 {% endblock %}
 {% block post_content %}
+{% if issue.editable %}
     <iframe class="weekly preview" src="{{ url('issues:preview', issue.id) }}"></iframe>
-{% include 'dialogs/create_article.html' %}
-{% include 'dialogs/edit_article.html' %}
+    {% include 'dialogs/create_article.html' %}
+    {% include 'dialogs/edit_article.html' %}
+{% else %}
+    <iframe class="weekly preview" src="{{ url('issues:view', issue.id) }}"></iframe>
+{% endif %}
 {% endblock %}

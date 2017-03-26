@@ -25,8 +25,8 @@
                 <div class="header">第 {{ issue.id }} 期</div>
                 <div class="meta">{{ issue.pub_date }}</div>
             </div>
-        {% if not issue.template %}
-            <div class="ui right corner label"  data-tooltip="由舊系統匯入">
+        {% if not issue.editable %}
+            <div class="ui right corner label"  data-tooltip="已歸檔">
                 <i class="lock icon"></i>
             </div>
         {% elif issue.pub_date > now().date() %}
