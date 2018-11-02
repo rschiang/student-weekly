@@ -35,6 +35,8 @@ class Settings(LoginRequiredMixin, TemplateView):
 
 
 def login(request):
+    if request.user.is_authenticated():
+        return redirect('issues:list')
     return auth.views.login(request,
                             template_name='login.html',
                             authentication_form=HintedAuthenticationForm)

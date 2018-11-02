@@ -8,7 +8,7 @@
                 {% if form.errors %}
                 <div class="ui error message">
                     <div class="header">登入失敗</div>
-                    {% if request.user.is_authenticated() %}
+                    {% if 'inactive' in form.errors %}
                     <p>帳號 {{ request.user.get_username() }} 已停用，請聯絡資訊小組。</p>
                     {% else %}
                     <p>請輸入正確的使用者與密碼。</p>
